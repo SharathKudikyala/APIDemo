@@ -36,7 +36,6 @@ app.use(function(req, res, next){
 	next();
 });
 app.use('/', index);
-app.use('/test1', index);
 app.use('/api/v1/employees', users);
 
 // catch 404 and forward to error handler
@@ -45,8 +44,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
 
 // error handler
 app.use(function(err, req, res, next) {
