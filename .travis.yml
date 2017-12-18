@@ -12,7 +12,7 @@ after_script:
 - yarn report-coverage
 deploy:
   - provider: heroku
-    app: ctrl-api
+    app: ctrlp-api
     on:
       repo: SharathKudikyala/APIDemo
       node: '6.10'
