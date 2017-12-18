@@ -14,6 +14,6 @@ deploy:
   - provider: heroku
     app: ctrl-api
     on:
-      repo: sharathkudikyala/APIDemo
+      repo: SharathKudikyala/APIDemo
       node: '6.10'
     api_key: f9a27842-a41f-4e67-84f4-df3e8936d7d9
