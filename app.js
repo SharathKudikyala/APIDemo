@@ -27,10 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Database connection
 app.use(function(req, res, next){
 	global.connection = mysql.createConnection({
-	  	host     : '104.131.183.127',
-	  	user     : 'test',
-        password : 'Test@123',
-  		database : 'ctrlp'
+	  	host     : process.env.DB_HOST,
+	  	user     : process.env.DB_USER,
+        password : process.env.DB_PASSWORD,
+  		database : process.env.DB_NAME
 	});
 	connection.connect();
 	next();
