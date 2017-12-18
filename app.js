@@ -27,15 +27,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Database connection
 app.use(function(req, res, next){
 	global.connection = mysql.createConnection({
-	  	host     : 'localhost',
-	  	user     : 'root',
-  		database : 'test'
+	  	host     : '104.131.183.127',
+	  	user     : 'test',
+        password : 'Test@123',
+  		database : 'ctrlp'
 	});
 	connection.connect();
 	next();
 });
 app.use('/', index);
-app.use('/api/v1/users', users);
+app.use('/api/v1/employees', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -59,4 +60,6 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 var server = http.createServer(app);
-server.listen(4001);
+server.listen(process.env.PORT || 3000, function(){
+    console.log('server started...');
+});

@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+- '4.6'
+- '6.10'
+- '7.2'
+cache:
+  directories:
+  - node_modules
+git:
+  depth: 3
+after_script:
+- yarn report-coverage
+deploy:
+  - provider: heroku
+    app: ctrl-api
+    on:
+      repo: sharathkudikyala/APIDemo
+      node: '6.10'
+    api_key:
+     secure: pwlIJne9zM9cY3gRpEXU3/krCigy2tbA2by9EoIf54jEVvYrnUdch25j/5NhLs1T3GBxyc7btXkOkDTIbIQK0jdxdeG2r9j6sFu9gRFc4v9YXviRMR2jLWxdHDySNjYHQBBXKSOXE6XWLMay0a+6dAqvZTKaAtfo/Mfp9ugpSYVb+vQ/dAfxgPWD6QkBPUAFe1BL54wGNfv+E3abXPI6vsFU7BOd3G9tMJPOu+drcTbVbJuHv39qo0CWTA2sWu7SxFZR9GSYQVn8UFhgaR3i6ropQEZ0+tVzWKMazE2YuRhJ4LOBbFsCmbjAia4nGZMaL0rT0bMWrzmnJY5dmjSE6F6czo1IMJbTuYcISADIqbwCUjtokYjMDzCSZdrT6Kcm97Ry0ShJ2tn1ikLXev0qy7JrtZ0XITSda/JCiIpZtyByq5n3Cv36mph55S4MhAeFgb9ivKaqkqEUpQBPv+uRNZExXAOwmh6243klMPwvd9l0K5bITd+jYW8T+vgoxazX9+PIZk/aBWkHm3lpnk2vPLwObk/c+SYegfysQsU+yUjGWWRJCU8ScFevkXldMvtAh8wu8UeV+ehMohkotNMI0l4qBmgOkozyngUO4AKRpuAQi4H0fRFKwzZw0EQUDVxDUfEgbPL1hKTqmnDky/L+427CGTSWbln4pRhfVezeWNY=
