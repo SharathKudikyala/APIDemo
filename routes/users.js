@@ -37,6 +37,7 @@ router.get('/:userID', function(req, res, next) {
 
 /* POST user. */
 router.post('/', function(req, res, next) {
+	var results = [];
 	var vehicles = req.body.vehicles;
 	var userID = req.body.userID;
 	var employeeName = req.body.employeeName;
@@ -45,16 +46,12 @@ router.post('/', function(req, res, next) {
         var query = "INSERT INTO user_Profile (userID, employeeName, companyID, vehicleType, vehicleNumber, RFID_Number) values ( " +
            userID + ", \'" + employeeName + "\', \'" + companyID + "\', \'" + vehicle.vehicleType + "\', \'" + vehicle.vehicleNumber + "\', \'" + vehicle.RFID_Number +  "\')";
         console.log('POST user query ::: ', query);
-        connection.query(query, function (error, result, fields) {
-            if(error){
-                Promise.reject(error);
-            } else {
-                Promise.resolve(result);
-            }
-        });
+        return connection.query(query)
+            .then(result => results.push(result));
+
 	});
 	Promise.all(promises)
-        .then(result => res.send(result))
+        .then(result => res.send({}))
         .catch(e => res.send({"status": 500, "error": e, "response": null}))
 });
 
