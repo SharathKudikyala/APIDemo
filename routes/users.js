@@ -46,12 +46,21 @@ router.post('/', function(req, res, next) {
         var query = "INSERT INTO user_Profile (userID, employeeName, companyID, vehicleType, vehicleNumber, RFID_Number) values ( " +
            userID + ", \'" + employeeName + "\', \'" + companyID + "\', \'" + vehicle.vehicleType + "\', \'" + vehicle.vehicleNumber + "\', \'" + vehicle.RFID_Number +  "\')";
         console.log('POST user query ::: ', query);
-        return connection.query(query)
-            .then(result => results.push(result));
+        return new Promise(function(resolve, reject) {
+            connection.query(query, function (error, result, fields) {
+                if(error){
+                    reject({"status": 500, "error": error, "response": null});
+                    //If there is error, we send the error in the error section with 500 status
+                } else {
+                	resolve(result);
+                    //If there is no error, all is good and response is 200OK.
+                }
+            });
+        });
 
 	});
 	Promise.all(promises)
-        .then(result => res.send({}))
+        .then(result => res.send({"status": 200, "success": true, "user_profile": req.body}))
         .catch(e => res.send({"status": 500, "error": e, "response": null}))
 });
 
