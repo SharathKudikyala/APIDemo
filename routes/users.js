@@ -38,7 +38,7 @@ router.get('/:userID', function(req, res, next) {
 
 
 /* POST user. */
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
 	var vehicles = req.body.vehicles;
 	var userID = req.body.userID;
 	var employeeName = req.body.employeeName;
@@ -50,11 +50,8 @@ router.get('/', function(req, res, next) {
         connection.query(query, function (error, result, fields) {
             if(error){
                 Promise.reject(error);
-                res.send({"status": 500, "error": error, "response": null});
-                //If there is error, we send the error in the error section with 500 status
             } else {
                 Promise.resolve(result);
-                //If there is no error, all is good and response is 200OK.
             }
         });
 	});
