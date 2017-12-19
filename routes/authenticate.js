@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET users listing. */
 router.post('/', function(req, res, next) {
 
-    var query = "select * from App_Credentials where Username="+ req.body.username + " and passwordfield=" + req.body.password;
+    var query = "select * from App_Credentials where Username = \'"+ req.body.username + "\' and passwordfield = \'" + req.body.password + "\'";
     console.log('Query ::: ', query);
     connection.query(query, function (error, results, fields) {
         if(error){
