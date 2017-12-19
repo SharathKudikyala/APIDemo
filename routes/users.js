@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	var query = 'SELECT * from user_profile';
+	var query = 'SELECT * from user_Profile';
 	console.log('Query ::: ', query);
  	connection.query(query, function (error, results, fields) {
 	  	if(error){
