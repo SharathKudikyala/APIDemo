@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
             res.send({"status": 500, "error": error, "response": null});
             //If there is error, we send the error in the error section with 500 status
         } else {
-            if (results.length == 0) {
+            if (results.length > 0) {
               res.send(results[0]);
             } else {
               res.send({"status": 403, "error": 'Username/password provided do not match.', "response": null});
