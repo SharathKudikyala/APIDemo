@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-/* GET users listing. */
+/* GET user details. */
 router.get('/:userID', function(req, res, next) {
 	var query = 'SELECT * from user_Profile where userId='+ req.params.userID;
     console.log('Query ::: ', query);
@@ -34,6 +34,33 @@ router.get('/:userID', function(req, res, next) {
             //If there is no error, all is good and response is 200OK.
         }
     });
+});
+
+
+/* POST user. */
+router.get('/', function(req, res, next) {
+	var vehicles = req.body.vehicles;
+	var userID = req.body.userID;
+	var employeeName = req.body.employeeName;
+	var companyID = req.body.companyID;
+	var promises = vehicles.map(vehicle => {
+        var query = "INSERT INTO user_Profile ('userID','employeeName','companyID','vehicleType','vehicleNumber','RFID_Number') values ( " +
+            userID + ", " + employeeName + ", " + companyID + ", " + vehicle.vehicleType + ", " + vehicle.vehicleNumber + ", " + vehicle.RFID_Number +  ")";
+        console.log('POST user query ::: ', query);
+        connection.query(query, function (error, result, fields) {
+            if(error){
+                Promise.reject(error);
+                res.send({"status": 500, "error": error, "response": null});
+                //If there is error, we send the error in the error section with 500 status
+            } else {
+                Promise.resolve(result);
+                //If there is no error, all is good and response is 200OK.
+            }
+        });
+	});
+	Promise.all(promises)
+        .then(result => res.send(result))
+        .catch(e => res.send({"status": 500, "error": e, "response": null}))
 });
 
 module.exports = router;

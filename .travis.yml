@@ -15,5 +15,5 @@ deploy:
     app: ctrlp-api
     on:
       repo: SharathKudikyala/APIDemo
-      node: '6.10'
+      node: '7.2'
     api_key: f9a27842-a41f-4e67-84f4-df3e8936d7d9
