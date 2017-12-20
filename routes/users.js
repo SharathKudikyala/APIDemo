@@ -26,7 +26,7 @@ router.get('/:userID', function(req, res, next) {
             //If there is error, we send the error in the error section with 500 status
         } else {
             if (results.length > 0) {
-                res.send(results[0]);
+                res.send(results);
             } else {
                 res.send({"status": 404, "error": 'No such user exists.', "response": null});
             }
