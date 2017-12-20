@@ -42,10 +42,8 @@ router.post('/', function(req, res, next) {
 	var userID = req.body.userID;
 	var employeeName = req.body.employeeName;
 	var companyID = req.body.companyID;
-    console.log('REQUEST vehicles :::::', vehicles);
-	console.log('REQUEST vehicles :::::', JSON.stringify(vehicles));
+
 	var promises = vehicles.map(vehicle => {
-		console.log('Vehicle :::: ', vehicle);
         var query = "INSERT INTO user_Profile (userID, employeeName, companyID, vehicleType, vehicleNumber, RFID_Number) values ( " +
            userID + ", \'" + employeeName + "\', \'" + companyID + "\', \'" + vehicle.vehicleType + "\', \'" + vehicle.vehicleNumber + "\', \'" + vehicle.RFID_Number +  "\')";
         console.log('POST user query ::: ', query);

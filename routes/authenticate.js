@@ -14,7 +14,7 @@ router.post('/', function(req, res, next) {
             if (results.length > 0) {
               res.send(results[0]);
             } else {
-              res.send({"status": 403, "error": 'Username/password provided do not match.', "response": null});
+              res.send({"status": 403, "error": 'Username and password combination does not match.', "response": null});
             }
             //If there is no error, all is good and response is 200OK.
         }
