@@ -43,7 +43,7 @@ router.post('/', function(req, res, next) {
 	var employeeName = req.body.employeeName;
 	var companyID = req.body.companyID;
 
-	var deleteQuery = "DELETE FROM user_profile where userID = "+ userID ;
+	var deleteQuery = "DELETE FROM user_Profile where userID = "+ userID ;
 
 	connection.query(deleteQuery,  (error, results, fields) => {
         if(error){
