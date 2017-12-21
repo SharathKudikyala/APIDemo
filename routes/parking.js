@@ -4,10 +4,15 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-    var query = "Select (select name from ctrlp.floors where in_device = '1111120') as floorname, " +
-        "((Select two_w_slots*6 From ctrlp.company_slots where floor =8)-(select count(vehicle_type) from ctrlp.data where outstatus!= 'out' and machineid = '20' and vehicle_type='Two Wheeler')) as Two_Wheelers_free, " +
-        "((Select four_w_slots From ctrlp.company_slots where floor =8)-(select count(vehicle_type) from ctrlp.data where outstatus!= 'out' and machineid = '20' and vehicle_type='Four Wheeler')) as Four_Wheelers_free " +
-        "from dual";
+    var query = `Select (select name from ctrlp.floors where in_device = '1111110') as floorname ,
+((Select two_w_slots*6 From ctrlp.company_slots where floor =7)-(select count(vehicle_type) from ctrlp.data where outstatus!= 'out' and deviceidin = '1111110' and vehicle_type='Two Wheeler')) as Two_Wheelers_free,
+((Select four_w_slots From ctrlp.company_slots where floor =7)-(select count(vehicle_type) from ctrlp.data where outstatus!= 'out' and deviceidin = '1111110' and vehicle_type='Four Wheeler')) as Four_Wheelers_free 
+from dual
+union
+Select (select name from ctrlp.floors where in_device = '1111120') as floorname ,
+((Select two_w_slots*6 From ctrlp.company_slots where floor =8)-(select count(vehicle_type) from ctrlp.data where outstatus!= 'out' and deviceidin = '1111120' and vehicle_type='Two Wheeler')) as Two_Wheelers_free,
+((Select four_w_slots From ctrlp.company_slots where floor =8)-(select count(vehicle_type) from ctrlp.data where outstatus!= 'out' and deviceidin = '1111120' and vehicle_type='Four Wheeler')) as Four_Wheelers_free 
+from dual;`;
     console.log('Query ::: ', query);
     connection.query(query, function (error, results, fields) {
         if(error){
