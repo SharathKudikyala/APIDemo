@@ -49,7 +49,7 @@ router.post('/', function(req, res, next) {
         } else {
             var promises = vehicles.map(vehicle => {
                 var query = "INSERT INTO user_Profile (userID, employeeName, companyID, vehicleType, vehicleNumber, RFID_Number) values ( " +
-                    userID + ", \'" + employeeName + "\', \'" + companyID + "\', \'" + vehicle.vehicleType + "\', \'" + vehicle.vehicleNumber + "\', \'" + vehicle.RFID_Number +  "\')";
+                    userID + ", \'" + employeeName + "\', " + companyID + ", \'" + vehicle.vehicleType + "\', \'" + vehicle.vehicleNumber + "\', \'" + vehicle.RFID_Number +  "\')";
 
                 return new Promise(function(resolve, reject) {
                     console.log('POST user query ::: ', query);
