@@ -43,19 +43,23 @@ router.post('/', function(req, res, next) {
 
 	connection.query(deleteQuery,  (error, results, fields) => {
         if(error){
+            console.log('DELETE ERROR :::', error);
             res.send({"status": 500, "error": error, "response": null});
             //If there is error, we send the error in the error section with 500 status
         } else {
             var promises = vehicles.map(vehicle => {
                 var query = "INSERT INTO user_Profile (userID, employeeName, companyID, vehicleType, vehicleNumber, RFID_Number) values ( " +
                     userID + ", \'" + employeeName + "\', \'" + companyID + "\', \'" + vehicle.vehicleType + "\', \'" + vehicle.vehicleNumber + "\', \'" + vehicle.RFID_Number +  "\')";
-                console.log('POST user query ::: ', query);
+
                 return new Promise(function(resolve, reject) {
+                    console.log('POST user query ::: ', query);
                     connection.query(query, function (error, result, fields) {
                         if(error){
+                            console.log('INSERT ERROR :::', error);
                             reject({"status": 500, "error": error, "response": null});
                             //If there is error, we send the error in the error section with 500 status
                         } else {
+                            console.log('RESULT :::', result);
                             resolve(result);
                             //If there is no error, all is good and response is 200OK.
                         }
@@ -64,8 +68,14 @@ router.post('/', function(req, res, next) {
 
             });
             Promise.all(promises)
-                .then(result => res.send({"status": 200, "success": true, "user_profile": req.body}))
-                .catch(e => res.send({"status": 500, "error": e, "response": null}))
+                .then(result => {
+                    console.log('RESULT :::', result);
+                    res.send({"status": 200, "success": true, "user_profile": req.body})
+                })
+                .catch(e => {
+                    console.log('POST ERROR ::: ', e);
+                    res.send({"status": 500, "error": e, "response": null})
+                })
             //If there is no error, all is good and response is 200OK.
         }
     });
